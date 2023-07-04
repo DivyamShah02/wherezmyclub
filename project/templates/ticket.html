@@ -50,10 +50,10 @@
                 
                 <div class="card mb-3 mx-lg-5" id="ticket" style="border: 2px solid black;">
                     <div class="row g-0">
-                      <div class="col-md-4 d-flex justify-content-center align-items-center">
+                      <div class="d-flex justify-content-center align-items-center">
                         <img class="card-img" src="{{qr}}" alt="Card image" style="width: 200px !important;"/>
                       </div>
-                      <div class="col-md-8">
+                      <div class="">
                         <div class="card-body text-center">
                           <h5 class="card-title">Bienvenido’26</h5>
                           <p class="card-text text-start">
@@ -141,8 +141,6 @@ T e m p l a t e M o
 
     <script>
         function downloadEventPass() {
-            var ticket_div = document.getElementById('ticket')
-            ticket_div.style.display = 'block';
             html2canvas(document.getElementById('ticket')).then(function(canvas) {
                 var link = document.createElement('a');
                 link.download = 'event_pass.png';

@@ -6,10 +6,10 @@ from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from user_info.models import userData
 from django.core.files.uploadedfile import InMemoryUploadedFile
-import random,qrcode,io
+import random,qrcode,io,yagmail
 
 def admin_boss(request):
-    return redirect('http://divyamshah.pythonanywhere.com/admin')
+    return redirect('http://www.wherezmyclub.com/admin')
 
 def home(request):
     return render(request,'index.html')
@@ -35,18 +35,19 @@ def payment_success(request):
             if len(userData.objects.filter(user_id = uid)) == 0:
                 new_id = False
         
-        link_data = f'http://divyamshah.pythonanywhere.com/qr_check/{uid}'
+        link_data = f'http://www.wherezmyclub.com/qr_check/{uid}'
         qr = qrcode.QRCode(version=1, box_size=10, border=1)
         qr.add_data(link_data)
         qr.make(fit=True)
         image = qr.make_image(fill_color='black', back_color='white')
+        image_temp = image
         user_data = userData(user_id=uid, user_name = contact_name,user_email=contact_email,user_number=mobile_number,user_pass_qty=pass_count,user_pass_amt=pass_amt,payment_id=payment_id)
         image_io = io.BytesIO()
         image.save(image_io, format='PNG')
         image_file = InMemoryUploadedFile(
             image_io,
             None,
-            f'{contact_name}.png',
+            f'{uid}.png',
             'image/png',
             image_io.tell(),
             None
@@ -54,6 +55,11 @@ def payment_success(request):
         user_data.user_qr = image_file
         user_data.save()
         
+        EMAIL = 'wherezmyclub.com@gmail.com'
+        PASSWORD = 'dpgcwctdntzgiqfb'
+        yag = yagmail.SMTP(EMAIL,PASSWORD)
+        yag.send(to=contact_email,subject='Pass for Bienvenido’26',
+                 contents=[f'<h3>Name: {contact_name}<br>Venue: Hex, Andheri West<br>Date: 20 July, 2023<br>Time: 9:00 Pm Onwards<br>Attendors: {pass_count}</h3>'],attachments=f'media\\user_qrs\\{uid}.png')            
         
         response = redirect('generated_pass')
         response.set_cookie('user_id',uid,max_age=15*24*60*60)
