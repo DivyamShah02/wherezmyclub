@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club & Company Check</title>
+    <style>
+        td{
+            padding: 10px 20px;
+            text-align: center;
+        }
+        th{
+            padding: 20px;
+        }
+        .print_btn{
+            padding: 10px;
+            background-color: #a69b9bda;
+            border: 1px solid black;
+            border-radius: 20px;            
+            text-align: center;
+            margin-bottom: 30px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .print_btn:hover{
+            border: 2px solid black;
+            box-shadow: 2px 2px 2px rgb(94, 92, 92);
+        }
+        /* .data{
+            display: none;
+        } */
+        @media print {
+            .print_btn{
+                display: none;
+            }
+            /* .data{
+                display: block;
+            }             */
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- <div class="data">
+        <h3>
+            Total Users - {{total_user}}<br>
+            Total Distributor - {{total_distributor}}<br>
+            Total Distributor to be checked - {{total_distributor_uncheck}}<br>
+        </h3>
+    </div> -->
+    <br>
+    <table border="2px solid black" style="margin: 10px;">
+        <thead>
+            <!-- <th>Date</th> -->
+            <th>Activate</th>
+            <th>acc_type</th>
+            <th>company_name</th>
+            <th>club_name</th>
+            <th>gst_number</th>
+            <th>email</th>
+            <th>instagram_link</th>
+            <th>address</th>
+            <th>number</th>
+            <th>logo</th>
+        </thead>            
+        {% for user_info in user_data reversed %}
+        <tr>
+            <!-- <td>{{teacher_data.date}}</td> -->
+            <td><a href="{% url 'user_activate' user_info.user_id %}" target="_blank"><button>Activate</button></a></td>
+            <td>{{user_info.acc_type}}</td>
+            <td>{{user_info.company_name}}</td>
+            <td>{{user_info.club_name}}</td>
+            <td>{{user_info.gst_number}}</td>
+            <td>{{user_info.email}}</td>
+            <td>{{user_info.instagram_link}}</td>
+            <td>{{user_info.address}}</td>
+            <td>{{user_info.number}}</td>
+            <td><img src="{{user_info.logo.url}}" class="rounded-circle img-fluid" style="width: 150px;"></td>
+        </tr>           
+        {% endfor %}
+    </table>
+</body>
+</html>

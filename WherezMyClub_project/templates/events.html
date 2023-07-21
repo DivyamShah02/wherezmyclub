@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Wherez My Club</title>
+    <link rel="icon" href="/static/images/WMC main logo (1).png">
+
+
+    <!-- CSS FILES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/slider.css">
+
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="/static/css/bootstrap-icons.css" rel="stylesheet">
+
+
+    <link href="/static/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <main>
+
+        {% include 'header.html' %}
+
+
+
+        <section class="ticket-section section-padding">
+            <div class="section-overlay"></div>
+              <div class="container">
+                <div class="row justify-content-center">
+
+                    <div class="col-12 text-center">
+                        <h2 class="mb-5" style="color: var(--secondary-color);">All Events</h1>
+                    </div>
+
+                    {% for event in all_event_data %}
+                    
+
+                    <div class="col-lg-4 col-12 mb-4">
+                    <a href="{% url 'event' event.event_id %}">
+                        <div class="artists-thumb mb-0">
+                            <div class="artists-image-wrap">
+                                <img src="{{event.flyer.url}}" style="border: 2px solid var(--secondary-color);"
+                                    class="artists-image img-fluid">
+                                </div>
+
+                        </div>
+                        <h3 class="mt-0 text-white">{{event.event_name}}</h3>
+                    </a>
+
+                    </div>
+
+                    {% endfor %}
+
+
+                </div>
+              </div>        
+          </section>
+        
+
+
+        
+
+    </main>
+
+
+{% include "footer.html" %}
+
+    <!-- JAVASCRIPT FILES -->
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/jquery.sticky.js"></script>
+    <script src="/static/js/click-scroll.js"></script>
+    <script src="/static/js/custom.js"></script>
+    <script src="/static/js/owl-carousel.js"></script>
+    <script src="/static/js/partners-carosel.js"></script>
+
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
+  <script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> 
+
+
+</body>
+
+</html>

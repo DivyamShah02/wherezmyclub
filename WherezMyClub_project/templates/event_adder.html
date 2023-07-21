@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Event Adder</title>
+    <link rel="icon" href="/static/images/WMC main logo (1).png">
+
+
+    <!-- CSS FILES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;400;700&display=swap" rel="stylesheet">
+
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="/static/css/bootstrap-icons.css" rel="stylesheet">
+
+
+    <link href="/static/css/style.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+    <main>
+
+        {% include 'header.html' %}
+
+        <section class="ticket-section section-padding" style="padding-top: 50px !important;">
+          <div class="section-overlay"></div>
+            <div class="container">
+                <div class="row mx-1">
+                    <div class="col-lg-8 col-12 mx-auto mt-5 p-3" style="border: 5px solid var(--secondary-color); border-radius: 30px;">
+                        <h2 class="text-center mb-4" style="color: var(--secondary-color);">Add an Event</h2>
+                        <form id="event_form" class="custom-form contact-form mb-5 mb-lg-0" method="post" role="form" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="contact-form-body">
+                                <label for="event_name" class="text-white pb-1 px-1"><b>Event name</b>
+                                    <small class="text-danger">*</small></label>
+                                <input type="text" name="event_name" id="event_name"
+                                class="form-control" placeholder="Event name" required>
+
+                                <label for="event_desc" class="text-white pb-1 px-1"><b>Event Description</b>
+                                    <small class="text-danger">*</small></label>
+                                <textarea name="event_desc" id="event_desc" rows="5"
+                                class="form-control" placeholder="Event Description" required></textarea>
+                                    
+                                {% if user_data.acc_type == 'Club' %}
+                                <label for="event_venue" class="text-white pb-1 px-1"><b>Event Venue</b>
+                                    <small class="text-danger">*</small></label>
+                                <input type="text" name="event_venue" id="event_venue" value="{{user_data.club_name}}"
+                                class="form-control" placeholder="Event Venue" required>
+                                {% else %}                              
+                                <label for="event_venue" class="text-white pb-1 px-1"><b>Event Venue</b>
+                                    <small class="text-danger">*</small></label>
+                                <input type="text" name="event_venue" id="event_venue"
+                                class="form-control" placeholder="Event Venue" required>
+                                {% endif %}
+
+
+                                <label for="event_date" class="text-white pb-1 px-1"><b>Event Date</b>
+                                    <small class="text-danger">*</small></label>
+                                <input type="date" name="event_date" id="event_date"
+                                class="form-control" placeholder="Event Date" required>
+
+                                <label for="event_time" class="text-white pb-1 px-1"><b>Event Time</b>
+                                    <small class="text-danger">*</small></label>
+                                <input type="time" name="event_time" id="event_time"
+                                class="form-control" placeholder="Event Time" required>
+
+                                {% if user_data.acc_type == 'Club' %}
+                                <label for="hosts" class="text-white pb-1 px-1"><b>Host</b>
+                                    <small class="text-danger">*</small></label>
+                                <input type="text" name="hosts" id="hosts"
+                                class="form-control" placeholder="Host" required>
+                                {% else %}                            
+                                <label for="hosts" class="text-white pb-1 px-1"><b>Host</b>
+                                    <small class="text-danger">*</small></label>
+                                <input type="text" name="hosts" id="hosts" value="{{user_data.company_name}}"
+                                class="form-control" placeholder="Host" required>
+                                {% endif %}
+
+
+                                <label for="collaborator" class="text-white pb-1 px-1"><b>Collaborator</b>
+                                    <small class="text-danger">*</small></label>
+                                <input type="text" name="collaborator" id="collaborator"
+                                class="form-control" placeholder="Collaborator" required>
+
+                                <label for="free_gl" class="text-white pb-1 px-1" style="display: flex; align-items: center; margin-bottom: 24px !important;">
+                                    <b>Free GL</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="checkbox" name="free_gl" id="free_gl"
+                                    style="width: 17px; height: 17px;" placeholder="Free GL">
+                                </label>
+
+                                <label for="paid_gl" class="text-white pb-1 px-1" style="display: flex; align-items: center; margin-bottom: 24px !important;">
+                                    <b>Paid GL</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="checkbox" name="paid_gl" id="paid_gl"
+                                    style="width: 17px; height: 17px;" placeholder="Paid GL">
+                                </label>
+
+                                <label for="pass_price" class="text-white pb-1 px-1"><b>Pass Price</b>
+                                    <small class="text-danger">* <span class="text-white">(Enter 0 if the entry is free)</span></small></label>
+                                <input type="number" name="pass_price" id="pass_price" min="0"
+                                class="form-control" placeholder="Pass Price" required>
+                                
+                                <label for="gt_1" class="text-white pb-1 px-1"><b>Includes (Upto 5 points)</b>
+                                    <small class="text-danger">* <span class="text-white">(or any extra information of event)</span></small></label>
+                                <input type="text" name="gt_1" id="gt_1"
+                                class="form-control" placeholder="Buffet">
+                                <input type="text" name="gt_2" id="gt_2"
+                                class="form-control" placeholder= "Drinks included">
+                                <input type="text" name="gt_3" id="gt_3"
+                                class="form-control" placeholder= "Leave Blank if not needed">
+                                <input type="text" name="gt_4" id="gt_4"
+                                class="form-control" placeholder= "Leave Blank if not needed">
+                                <input type="text" name="gt_5" id="gt_5"
+                                class="form-control" placeholder= "Leave Blank if not needed">
+
+                                <label for="FlyerUpload" class="text-white pb-1 px-1"><b>Flyer Image</b>
+                                    <small class="text-danger">* <span class="text-white">(Aspect ratio should be 3:2)</span></small></label><br>
+                                <input type="file" id="FlyerUpload" name="flyer" style="color: white; padding-bottom: 24px;" accept="image/*" required>
+                                <div id="imagePreview"></div>
+
+                                <label for="tablechartUpload" class="text-white pb-1 px-1"><b>Table Chart Image</b>
+                                    <small class="text-danger">*</small></label><br>
+                                <input type="file" id="tablechartUpload" name="table_chart" style="color: white; padding-bottom: 24px;" accept="image/*" required>                                
+                                
+                                <div class="col-lg-4 col-md-10 col-8 mx-auto">
+                                    <button type="submit" class="form-control">Add Event</button>
+                                </div>
+                            </div>
+                        </form>                                
+                    </div>
+                </div>
+            </div>        
+        </section>
+
+    </main>
+
+        {% include "footer.html" %}
+
+
+    <script>
+        document.getElementById('event_form').onsubmit = function() {
+          // Get references to the checkboxes
+          const option1Checked = document.getElementsByName('free_gl')[0].checked;
+          const option2Checked = document.getElementsByName('paid_gl')[0].checked;
+      
+          // Check if at least one checkbox is selected
+          if (!option1Checked && !option2Checked) {
+            alert('Please select Free GL or Paid GL.');
+            return false; // Prevent form submission
+          }
+
+          const inputs = ['gt_1', 'gt_2', 'gt_3', 'gt_4', 'gt_5'];
+
+          for (const inputId of inputs) {
+          const input = document.getElementById(inputId);
+          if (input.value.trim() === '') {
+              input.value = 'Null';
+            }
+          }
+        };
+    </script>
+
+    <!-- JAVASCRIPT FILES -->
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/jquery.sticky.js"></script>
+    <script src="/static/js/click-scroll.js"></script>
+    <script src="/static/js/custom.js"></script>
+    <script src="/static/js/owl-carousel.js"></script>
+    <script src="/static/js/partners-carosel.js"></script>
+
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
+  <script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> 
+  <script src="/static/js/image_validator.js"></script>
+
+</body>
+
+</html>

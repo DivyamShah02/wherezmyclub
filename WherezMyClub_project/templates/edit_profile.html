@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Profile Edit</title>
+    <link rel="icon" href="/static/images/WMC main logo (1).png">
+
+
+    <!-- CSS FILES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;400;700&display=swap" rel="stylesheet">
+
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="/static/css/bootstrap-icons.css" rel="stylesheet">
+
+
+    <link href="/static/css/style.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+    <main>
+
+        {% include 'header.html' %}
+        <section class="ticket-section section-padding" style="padding-top: 50px !important;">
+          <div class="section-overlay"></div>
+            <div class="container">
+                <div class="row mx-1">
+                    <div class="col-lg-8 col-12 mx-auto mt-5 p-3" style="border: 5px solid var(--secondary-color); border-radius: 30px;">
+                        <h2 class="text-center mb-4" style="color: var(--secondary-color);">Edit profile</h2>
+                        {% if success == 2 %}
+                        <div class="alert alert-danger" role="alert">
+                            Email id is already registered!
+                        </div>
+                        {% endif %}
+                        {% if success == 1 %}
+                        <div class="alert alert-success" role="alert">
+                            Account registered!
+                        </div>
+                        {% endif %}
+                        <form id="register_form" class="custom-form contact-form mb-5 mb-lg-0" method="post" role="form" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="contact-form-body">
+                                
+                                {% if user_data.acc_type == 'Club' %}
+
+                                <label for="club_name_input" class="text-white pb-1 px-1"><b>Club Name</b>
+                                    <small class="text-danger">*</small></label>
+                                <input type="text" name="club_name" id="club_name_input" value="{{user_data.club_name}}"
+                                class="form-control" placeholder="club Name">
+
+                                <input type="text" name="company_name" id="company_name_input" value="Null" hidden
+                                class="form-control" placeholder="Company Name">  
+
+                                {% else %}       
+
+                                <label for="company_name_input" class="text-white pb-1 px-1"><b>Company Name</b>
+                                    <small class="text-danger">*</small></label>
+                                <input type="text" name="company_name" id="company_name_input" value="{{user_data.company_name}}"
+                                class="form-control" placeholder="Company Name"> 
+                                
+                                <input type="text" name="club_name" id="club_name_input" value="Null" hidden
+                                class="form-control" placeholder="club Name">
+                                
+                                {% endif %}                     
+
+                                <label for="gst_number" class="text-white pb-1 px-1"><b>GST Number</b>
+                                    <small class="text-danger">*</small></label>
+                                <input type="text" name="gst_number" id="gst_number" value="{{user_data.gst_number}}"
+                                class="form-control" placeholder="GST Number" required>
+
+                                <label for="email" class="text-white pb-1 px-1"><b>Email</b>
+                                    <small class="text-danger">*</small></label>
+                                <input type="email" name="email" id="email" value="{{user_data.email}}" readonly
+                                class="form-control" placeholder="Email" required>
+
+                                <label for="instagram" class="text-white pb-1 px-1"><b>Instagram ID</b>
+                                    <small class="text-danger">*</small></label>
+                                <input type="text" name="instagram" id="instagram" value="{{user_data.instagram_link}}"
+                                class="form-control" placeholder="Instagram ID" required>
+
+                                <label for="address" class="text-white pb-1 px-1"><b>Address</b>
+                                    <small class="text-danger">*</small></label>
+                                <textarea name="address" id="address" rows="5"
+                                class="form-control" placeholder="Address" required>{{user_data.address}}</textarea>
+
+                                <label for="number" class="text-white pb-1 px-1"><b>Mobile Number</b>
+                                    <small class="text-danger">*</small></label>
+                                <input type="number" name="number" id="number" maxlength="12" min="0" value="{{user_data.number}}"
+                                class="form-control" placeholder="Mobile Number" required>
+                                
+
+                                <label for="LogoUpload" class="text-white pb-1 px-1"><b>Logo</b>
+                                    <small class="text-danger">* <span class="text-white">(Aspect ratio should be 1:1)</span></small></label><br>
+                                    <img src="{{user_data.logo.url}}" alt="avatar"
+                                    class="rounded-circle img-fluid" style="width: 150px; border: 5px solid var(--secondary-color); margin-bottom: 24px !important;">&nbsp;&nbsp;&nbsp;
+                                <!-- <input type="file" id="LogoUpload" name="logo" style="color: white; padding-bottom: 24px !important;" accept="image/*"> -->
+                                
+                                <div class="col-lg-4 col-md-10 col-8 mx-auto">
+                                    <button type="submit" class="form-control">Save</button>
+                                </div>
+                            </div>
+                        </form>                                
+                    </div>
+                </div>
+            </div>        
+        </section>
+
+    </main>
+
+        {% include "footer.html" %}
+
+
+    
+
+    <!-- JAVASCRIPT FILES -->
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/jquery.sticky.js"></script>
+    <script src="/static/js/click-scroll.js"></script>
+    <script src="/static/js/custom.js"></script>
+    <script src="/static/js/owl-carousel.js"></script>
+    <script src="/static/js/partners-carosel.js"></script>
+
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
+  <script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> 
+  <!-- <script src="/static/js/logo_validator.js"></script> -->
+
+
+</body>
+
+</html>

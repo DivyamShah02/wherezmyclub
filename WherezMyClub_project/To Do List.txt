@@ -1,0 +1,16 @@
+X - add number of passes in stag and couple
+X - add flyer.png, desc, table chart.png
+
+X - user management (club and company)
+X - club / company profile / dashboard section from where they can check their profile / create event / manage events / 
+X- edit events / edit profile
+
+- mail to user after buying a passes
+- event calender
+X - all event page
+- Footer
+
+
+XX menu (login)
+XX qr scanner
+XX report of event

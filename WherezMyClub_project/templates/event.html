@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{{event_data.event_name}}</title>
+
+    <!-- CSS FILES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;400;700&display=swap" rel="stylesheet">
+
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="/static/css/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="/static/css/style.css" rel="stylesheet">
+
+    <style>
+        .ticket-section {
+            background-image: url('{{event_data.flyer.url}}') !important;
+        }    
+    </style>
+
+</head>
+
+<body>
+
+    <main>
+
+        {% include "header.html" %}
+
+        <section class="ticket-section section-padding">
+            <div class="section-overlay"></div>
+
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-12">
+                        <div class="pricing-thumb bg-white p-lg-5 p-3">
+                            <div class="text-center pb-2">
+                                <h2><u>{{event_data.event_name}}</u></h2>
+                                <h6>{{event_data.event_desc}}</h6>                                
+                            </div>
+                            <div class="d-flex">
+                                <div>
+                                    <!-- <h3>
+                                        <small>Entry Fees</small>
+                                        ₹1500/-</h3> -->
+
+                                    <h5 style="color: #000; padding-bottom: 10px;">Including good things:</h5>
+                                </div>
+                            </div>
+
+                            {% for gt in gt_data %}
+                            {% if gt != 'Null' %}
+                            <p class="text-black">
+                                <i class="bi-arrow-right-circle-fill me-2"></i>
+                                {{gt}}
+                            </p>
+                            
+                            {% else %}
+                            {% endif %}
+                            
+                            {% endfor %}
+                           
+                            <hr>
+                            
+                            <p class="text-black">
+                                <i class="bi-calendar me-2"></i>
+                                {{event_data.event_date}}
+                            </p>
+
+                            <p class="text-black">
+                                <i class="bi-clock me-2"></i>
+                                {{event_data.event_time}}
+                            </p>
+                            <p class="text-black">
+                                <i class="bi-geo-alt me-2"></i>
+                                {{event_data.event_venue}}
+                            </p>
+
+                            <p class="text-black">
+                                <b>Host: </b>{{event_data.host}}
+                            </p>
+
+                            <p class="text-black">
+                                <b>Collaborator: </b>{{event_data.collaborator}}
+                            </p>
+
+                            {% if event_data.pt1_head != 'Null' %}
+                                <p class="text-black">
+                                    <b>{{event_data.pt1_head}}: </b>{{event_data.pt1_value}}
+                                </p>
+                            {% endif %}
+                            {% if event_data.pt2_head != 'Null' %}
+                                <p class="text-black">
+                                    <b>{{event_data.pt2_head}}: </b>{{event_data.pt2_value}}
+                                </p>
+                            {% endif %}
+                            {% if event_data.pt3_head != 'Null' %}
+                                <p class="text-black">
+                                    <b>{{event_data.pt3_head}}: </b>{{event_data.pt3_value}}
+                                </p>
+                            {% endif %}
+                            {% if event_data.pt4_head != 'Null' %}
+                                <p class="text-black">
+                                    <b>{{event_data.pt4_head}}: </b>{{event_data.pt4_value}}
+                                </p>
+                            {% endif %}
+                            {% if event_data.pt5_head != 'Null' %}
+                                <p class="text-black">
+                                    <b>{{event_data.pt5_head}}: </b>{{event_data.pt5_value}}
+                                </p>
+                            {% endif %}
+                            {% if event_data.pt6_head != 'Null' %}
+                                <p class="text-black">
+                                    <b>{{event_data.pt6_head}}: </b>{{event_data.pt6_value}}
+                                </p>
+                            {% endif %}
+                            
+                            
+                            
+                            <b>
+                            <div class="row">
+                                {% if event_data.free_gl == True %}
+                                <div class="col-5 col-lg-2">
+                                    <a class="link-fx-1 color-contrast-higher mt-4 text-black" 
+                                    style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#free">
+                                        <span>Free Pass</span>
+                                        <svg class="icon" viewBox="0 0 32 32" aria-hidden="true">
+                                            <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                                                <circle cx="16" cy="16" r="15.5"></circle>
+                                                <line x1="10" y1="18" x2="16" y2="12"></line>
+                                                <line x1="16" y1="12" x2="22" y2="18"></line>
+                                            </g>
+                                        </svg>
+                                    </a>
+                                </div>
+                                {% endif %}
+                                
+                                {% if event_data.paid_gl == True %}
+                                <div class="col-5 col-lg-2">
+                                    <a class="link-fx-1 color-contrast-higher mt-4 text-black"
+                                    style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#paid">
+                                        <span>Paid Pass</span>
+                                        <svg class="icon" viewBox="0 0 32 32" aria-hidden="true">
+                                            <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                                                <circle cx="16" cy="16" r="15.5"></circle>
+                                                <line x1="10" y1="18" x2="16" y2="12"></line>
+                                                <line x1="16" y1="12" x2="22" y2="18"></line>
+                                            </g>
+                                        </svg>
+                                    </a>
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            </b>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="free" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="freeTitle">Event Pass</h5>
+                              <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              ></button>
+                            </div>
+                            <div class="modal-body pb-0">
+                              <div class="row">
+                                <div class="col">
+                                    <p class="text-black">
+                                        <i class="bi-calendar me-2"></i>
+                                        20<sup>th</sup>, July 2023
+                                    </p>
+        
+                                    <p class="text-black">
+                                        <i class="bi-clock me-2"></i>
+                                        9 Pm Onwards
+                                    </p>
+                                    <p class="text-black">
+                                        <i class="bi-geo-alt me-2"></i>
+                                        Hex, Andheri west
+                                    </p>
+                                </div>
+                              </div>                             
+                            </div>
+                            <div class="modal-body text-center">   
+                                <hr>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button type="button" class="btn custom-btn" data-bs-toggle="modal" data-bs-target="#stag">Stag</button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button type="button" class="btn custom-btn" data-bs-toggle="modal" data-bs-target="#couple">Couple</button>
+                                    </div>
+                                </div>                           
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="stag" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="stagTitle">Ladies Walk in with a smile!</h5>
+                              <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              ></button>
+                            </div>
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="modal-body">
+                                    <div class="row g-2">
+                                    <div class="col mb-3">
+                                        <label for="stag_first_name" class="form-label">First Name</label>
+                                        <input
+                                        type="text"
+                                        id="stag_first_name"
+                                        name="stag_first_name"
+                                        class="form-control"
+                                        placeholder="First Name"
+                                        required
+                                        />
+                                    </div>
+                                    <div class="col mb-3">
+                                        <label for="stag_last_name" class="form-label">Last Name</label>
+                                        <input
+                                        type="text"
+                                        id="stag_last_name"
+                                        name="stag_last_name"
+                                        class="form-control"
+                                        placeholder="Last Name"
+                                        required
+                                        />
+                                    </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col mb-3">
+                                            <label for="stag_email" class="form-label">Email</label>
+                                            <input
+                                            type="email"
+                                            id="stag_email"
+                                                name="stag_email"
+                                            class="form-control"
+                                            placeholder="xxxx@xxx.xx"
+                                            required
+                                            />
+                                        </div>                    
+                                    </div>
+                                    <div class="row">
+                                        <div class="col mb-3">
+                                            <label for="stag_number" class="form-label">Mobile Number</label>
+                                            <input
+                                            type="number" min='0' maxlength="12"
+                                            id="stag_number"
+                                            name="stag_number"
+                                            class="form-control"
+                                            placeholder="0000000000"
+                                            required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col mb-0">
+                                            <label for="stag_pass_qty" class="form-label">Number of Passes</label>
+                                            <input
+                                            type="number" min='1' max="{{event_data.max_pass}}"
+                                            id="stag_pass_qty"
+                                            name="stag_pass_qty"
+                                            class="form-control"
+                                            placeholder="1"
+                                            value='1'
+                                            required
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                    Close
+                                    </button>
+                                    <button type="submit" class="btn custom-btn" style="border-radius: 5px !important;">Generate Pass</button>
+                                </div>
+                            </form>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="couple" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="coupleTitle">Couple Pass</h5>
+                              <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              ></button>
+                            </div>
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="modal-body">
+                                    <div class="row g-2">
+                                        <p class="mb-0"><b>His:</b></p>
+                                        <div class="col mb-3">
+                                            <label for="his_first_name" class="form-label">First Name</label>
+                                            <input
+                                            type="text"
+                                            id="his_first_name"
+                                            name="his_first_name"
+                                            class="form-control"
+                                            placeholder="First Name"
+                                            required
+                                            />
+                                        </div>
+                                        <div class="col mb-3">
+                                            <label for="his_last_name" class="form-label">Last Name</label>
+                                            <input
+                                            type="text"
+                                            id="his_last_name"
+                                            name="his_last_name"
+                                            class="form-control"
+                                            placeholder="Last Name"
+                                            required
+                                            />
+                                        </div>                                        
+                                    </div>
+                                    <div class="row">
+                                        <div class="col mb-3">
+                                            <label for="his_number" class="form-label">Mobile Number</label>
+                                            <input
+                                            type="number" min='0' maxlength="12"
+                                            id="his_number"
+                                            name="his_number"
+                                            class="form-control"
+                                            placeholder="0000000000"
+                                            required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="row g-2">
+                                        <p class="mb-0"><b>Her:</b></p>
+                                        <div class="col mb-3">
+                                            <label for="her_first_name" class="form-label">First Name</label>
+                                            <input
+                                            type="text"
+                                            id="her_first_name"
+                                            name="her_first_name"
+                                            class="form-control"
+                                            placeholder="First Name"
+                                            required
+                                            />
+                                        </div>
+                                        <div class="col mb-3">
+                                            <label for="her_last_name" class="form-label">Last Name</label>
+                                            <input
+                                            type="text"
+                                            id="her_last_name"
+                                            name="her_last_name"
+                                            class="form-control"
+                                            placeholder="Last Name"
+                                            required
+                                            />
+                                        </div>                                        
+                                    </div>
+                                    <div class="row">
+                                        <div class="col mb-3">
+                                            <label for="her_number" class="form-label">Mobile Number</label>
+                                            <input
+                                            type="number" min='0' maxlength="12"
+                                            id="her_number"
+                                            name="her_number"
+                                            class="form-control"
+                                            placeholder="0000000000"
+                                            required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col mb-3">
+                                            <label for="couple_email" class="form-label">Email</label>
+                                            <input
+                                            type="email"
+                                            id="couple_email"
+                                            name="couple_email"
+                                            class="form-control"
+                                            placeholder="xxxx@xxx.xx"
+                                            required
+                                            />
+                                        </div>                    
+                                    </div>
+                                    <div class="row">
+                                        <div class="col mb-0">
+                                            <label for="couple_pass_qty" class="form-label">Number of Passes</label>
+                                            <input
+                                            type="number" min='1' max="{{event_data.max_pass}}"
+                                            id="couple_pass_qty"
+                                            name="couple_pass_qty"
+                                            class="form-control"
+                                            placeholder="1"
+                                            value='1'
+                                            required
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                    Close
+                                    </button>
+                                    <button type="submit" class="btn custom-btn" style="border-radius: 5px !important;">Generate Pass</button>
+                                </div>
+                            </form>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="paid" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="paidTitle">Event Pass</h5>
+                              <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              ></button>
+                            </div>
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="modal-body">
+                                    <div class="row g-2">
+                                    <div class="col mb-3">
+                                        <label for="paid_first_name" class="form-label">First Name</label>
+                                        <input
+                                        type="text"
+                                        id="paid_first_name"
+                                        name="paid_first_name"
+                                        class="form-control"
+                                        placeholder="First Name"
+                                        required
+                                        />
+                                    </div>
+                                    <div class="col mb-3">
+                                        <label for="paid_last_name" class="form-label">Last Name</label>
+                                        <input
+                                        type="text"
+                                        id="paid_last_name"
+                                        name="paid_last_name"
+                                        class="form-control"
+                                        placeholder="Last Name"
+                                        required
+                                        />
+                                    </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col mb-0">
+                                            <label for="paid_email" class="form-label">Email</label>
+                                            <input
+                                            type="email"
+                                            id="paid_email"
+                                            name="paid_email"
+                                            class="form-control"
+                                            placeholder="xxxx@xxx.xx"
+                                            required
+                                            />
+                                        </div>                    
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                    Close
+                                    </button>
+                                    <button type="button" class="btn custom-btn" style="border-radius: 5px !important;">Buy Now</button>
+                                </div>
+                            </form>
+                          </div>
+                        </div>
+                    </div>
+
+                </div>
+        </section>
+        
+    </main>
+
+
+    {% include "footer.html" %}
+
+    <!-- JAVASCRIPT FILES -->
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/jquery.sticky.js"></script>
+    <script src="/static/js/custom.js"></script>
+
+</body>
+
+</html>

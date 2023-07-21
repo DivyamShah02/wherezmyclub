@@ -1,0 +1,73 @@
+<header class="site-header">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-6 col-12 d-none d-md-block">
+                <p class="mb-0 text-start">
+                    <i class="bi-envelope custom-icon me-2"></i>
+                    <strong class="text-dark">info@wherezmyclub.com</strong>
+                </p>
+            </div>
+            <div class="col-lg-6 col-12">
+                <p class="mb-0 text-end">
+                    <small class="text-dark"><b>Follow us:</b></small>
+                    <a class="text-body ms-3" href=""><i class="bi-instagram custom-icon"></i></a>
+                    <a class="text-body ms-3" href=""><i class="bi-facebook custom-icon"></i></a>
+                    <a class="text-body ms-3" href=""><i class="bi-twitter custom-icon"></i></a>
+                    <a class="text-body ms-3" href=""><i class="bi-youtube custom-icon"></i></a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            Wherez My Club
+        </a>
+
+        <!-- <a href="ticket.html" class="btn custom-btn d-lg-none ms-auto me-4">Buy Ticket</a> -->
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav align-items-lg-center ms-auto me-lg-5">
+                <li class="nav-item">
+                    <a class="nav-link click-scroll text-white" href="{% url 'home' %}">Home</a>
+                </li>
+            
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'events' %}">Events</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link click-scroll" href="#calender">Calendar</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link click-scroll" href="#about">About Us</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link click-scroll" href="#">Careers</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact_us' %}">Contact Us</a>
+                </li>
+            </ul>
+
+            {% if logged_in == True %}
+            <a href="{% url 'dashboard' %}" class="btn custom-btn d-lg-block d-none">Dashboard</a>            
+            {% else %}
+            <a href="{% url 'login' %}" class="btn custom-btn d-lg-block d-none">Login</a>            
+            {% endif %}
+        </div>
+    </div>
+</nav>

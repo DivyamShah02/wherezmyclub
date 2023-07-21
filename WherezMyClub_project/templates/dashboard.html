@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Event Adder</title>
+    <link rel="icon" href="/static/images/WMC main logo (1).png">
+
+
+    <!-- CSS FILES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;400;700&display=swap" rel="stylesheet">
+
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="/static/css/bootstrap-icons.css" rel="stylesheet">
+
+
+    <link href="/static/css/style.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+    <main>
+
+        {% include 'header.html' %}
+
+        <section class="ticket-section section-padding" style="padding-top: 50px !important;">
+          <div class="section-overlay"></div>
+          {% if user_data.activated == True %}
+            <div class="container">
+                <section style="background-color: transparent !important;">
+                    <div class="container py-5">                                        
+                      <div class="row">
+                        <div class="col-lg-4">
+                          <div class="card mb-4" style="border: 2px solid var(--secondary-color);">
+                            <div class="card-body text-center">
+                              <img src="{{user_data.logo.url}}" alt="avatar"
+                                class="rounded-circle img-fluid" style="width: 150px; border: 5px solid var(--secondary-color);">
+                              {% if user_data.acc_type == 'Club' %}
+                              <h5 class="my-3" style="color: var(--secondary-color);">{{user_data.club_name}}</h5>
+                              {% else %}                              
+                              <h5 class="my-3" style="color: var(--secondary-color);">{{user_data.company_name}}</h5>
+                              {% endif %}
+                              <!-- <p class="text-muted mb-1">Full Stack Developer</p> -->
+                              <p class="text-muted mb-4"><b>{{user_data.gst_number}}</b></p>
+                              <div class="d-flex justify-content-center mb-2">
+                                <a href="{% url 'event_adder' %}"><button type="button" class="btn custom-btn" style="border-radius: 7px !important;">Create Event</button></a>
+                                <a href="{% url 'edit_profile' %}"><button type="button" class="btn btn-outline-warning ms-1 py-2"><b>Edit Profile</b></button></a>
+                              </div>
+                            </div>
+                          </div>                          
+                        </div>
+                        <div class="col-lg-8">
+                          <div class="card mb-4 pb-lg-4 pt-lg-2" style="border: 2px solid var(--secondary-color);">
+                            <div class="card-body">
+                              {% if user_data.acc_type == 'Club' %}
+                              <div class="row">
+                                <div class="col-sm-3">
+                                  <p class="mb-0" style="color: var(--secondary-color);"><b>Club Name</b></p>
+                                </div>
+                                <div class="col-sm-9">
+                                  <p class="text-muted mb-0"><b>{{user_data.club_name}}</b></p>
+                                </div>
+                              </div>
+                              {% else %}
+                              <div class="row">
+                                <div class="col-sm-3">
+                                  <p class="mb-0" style="color: var(--secondary-color);"><b>Company Name</b></p>
+                                </div>
+                                <div class="col-sm-9">
+                                  <p class="text-muted mb-0"><b>{{user_data.company_name}}</b></p>
+                                </div>
+                              </div>
+                              {% endif %}
+                              
+                              <hr>
+                              <div class="row">
+                                <div class="col-sm-3">
+                                  <p class="mb-0" style="color: var(--secondary-color);"><b>Email</b></p>
+                                </div>
+                                <div class="col-sm-9">
+                                  <p class="text-muted mb-0"><b>{{user_data.email}}</b></p>
+                                </div>
+                              </div>                                                                                          
+                              <hr>
+                              <div class="row">
+                                <div class="col-sm-3">
+                                  <p class="mb-0" style="color: var(--secondary-color);"><b>Mobile</b></p>
+                                </div>
+                                <div class="col-sm-9">
+                                  <p class="text-muted mb-0"><b>{{user_data.number}}</b></p>
+                                </div>
+                              </div>
+                              <hr>
+                              <div class="row">
+                                <div class="col-sm-3">
+                                  <p class="mb-0" style="color: var(--secondary-color);"><b>Address</b></p>
+                                </div>
+                                <div class="col-sm-9">
+                                  <p class="text-muted mb-0"><b>{{user_data.address}}</b></p>
+                                </div>
+                              </div>
+                              <hr>
+                              <div class="row g-2">
+                                <div class="col-6">                                  
+                                  <a href="{{user_data.instagram_link}}" target="_blank"><button type="button"  class="btn custom-btn" style="border-radius: 7px !important;">Instagram</button></a>
+                                </div>
+                                <div class="col-6 text-end">                                  
+                                  <a href="{% url 'log_out' %}" target="_blank"><button type="button"  class="btn btn-outline-warning ms-1 py-2" style="border-radius: 7px !important;">Log Out</button></a>
+                                </div>
+
+                              </div>  
+                            </div>
+                          </div>                          
+                        </div>
+                      </div>
+                      <div class="row">
+                        <h2 class="text-white text-center px-1">Your Events</h2>
+                        {% for event in event_data %}
+                    
+                        <div class="col-md-4">
+                          <div class="card mb-4 mb-md-0" style="border: 2px solid var(--secondary-color);">
+                            <div class="card-body">
+                                <a href="{% url 'event' event.event_id %}">
+                                    <div class="artists-thumb mb-0">
+                                        <div class="artists-image-wrap">
+                                            <img src="{{event.flyer.url}}"
+                                                class="artists-image img-fluid">
+                                            </div>                                    
+                                    </div>
+                                    <h3 class="mt-0">{{event.event_name}}</h3>
+                                </a>        
+                            </div>
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <a href="{% url 'event_edit' event.event_id %}"><button type="button" class="btn custom-btn" style="border-radius: 7px !important;">Edit Event</button></a>
+                                    </div>
+                                    <div class="col text-center">
+                                        <a href="{% url 'event_report' event.event_id %}"><button type="button" class="btn custom-btn" style="border-radius: 7px !important;">&nbsp;&nbsp;&nbsp;&nbsp;Report&nbsp;&nbsp;&nbsp;&nbsp;</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                        {% endfor %}
+
+                      </div>
+                    </div>
+                  </section>
+            </div>        
+          
+          {% else %}                              
+          <div class="container">
+            <div class="alert alert-warning my-5" role="alert">
+                <b>Your Account will be activated soon!</b>
+            </div>
+          </div>
+          {% endif %}
+
+        </section>
+
+    </main>
+
+        {% include "footer.html" %}
+
+
+    <script>
+        document.getElementById('event_form').onsubmit = function() {
+          // Get references to the checkboxes
+          const option1Checked = document.getElementsByName('free_gl')[0].checked;
+          const option2Checked = document.getElementsByName('paid_gl')[0].checked;
+      
+          // Check if at least one checkbox is selected
+          if (!option1Checked && !option2Checked) {
+            alert('Please select Free GL or Paid GL.');
+            return false; // Prevent form submission
+          }
+
+          const inputs = ['gt_1', 'gt_2', 'gt_3', 'gt_4', 'gt_5'];
+
+          for (const inputId of inputs) {
+          const input = document.getElementById(inputId);
+          if (input.value.trim() === '') {
+              input.value = 'Null';
+            }
+          }
+        };
+    </script>
+
+    <!-- JAVASCRIPT FILES -->
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/jquery.sticky.js"></script>
+    <script src="/static/js/click-scroll.js"></script>
+    <script src="/static/js/custom.js"></script>
+    <script src="/static/js/owl-carousel.js"></script>
+    <script src="/static/js/partners-carosel.js"></script>
+
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
+  <script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> 
+  <script src="/static/js/image_validator.js"></script>
+
+</body>
+
+</html>
